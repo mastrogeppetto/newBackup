@@ -17,9 +17,9 @@ Nel caso il sistema risponda `newBackup.sh: comando non trovato` utilizzare la s
 ```
 ~/bin/newBackup.sh
 ```
-e considerare di aggiungere l'impostazione della directory ~/bin nel PATH, aggiungendo la riga
+e considerare di aggiungere l'impostazione della directory `~/bin` nel `PATH`, aggiungendo la riga
 ```
-PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/bin:$PATH"
 ```
 nel file `.profile` per utilizzare la sintassi semplificata.
 Il programma verifica che
