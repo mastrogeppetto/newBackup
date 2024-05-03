@@ -1,4 +1,4 @@
-### Cofigurazione, installazione e uso
+### Configurazione, installazione e uso
 Un altro script per fare backup incrementale con rsync, adatto sopratutto a dispositivi rimovibili (chiavetta)
 La chiavetta deve essere formattata come ext, provato con ext4, con `gnome-disks`. Copiare il UUID del filesystem da `gnome-disks`.
 Per configurarle lo script editarlo per sostituire il valore della variabile BACKUPUUID con quella copiata al passo precedente. Ad esempio:
