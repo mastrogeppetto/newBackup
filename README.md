@@ -22,6 +22,7 @@ e considerare di aggiungere l'impostazione della directory `~/bin` nel `PATH`, a
 PATH="$HOME/bin:$PATH"
 ```
 nel file `.profile` per utilizzare la sintassi semplificata.
+Chiamando lo script con l'ozione -n si ottiene che vengano solo elencate le operazioni che verrebbero eseguite.
 Il programma verifica che
 * la chiavetta sia quella giusta
 * il filesystem di backup sia montato
@@ -29,4 +30,4 @@ Il programma verifica che
 
 ### Organizzazione dei dati
 
-La chiavetta contiene il contenuto della home, meno i file indicati nel parametro --exclude di rsync e directory chiamate backup_<timestamp> che contengono i file rimossi o sostituiti. Quindi è un diff rispetto al backup precedente.
+La chiavetta contiene il contenuto della home nella directory con il nome dell'utente. Vengono esclusi i file indicati nel parametro --exclude di rsync. Quindi è un diff rispetto al backup precedente.

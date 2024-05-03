@@ -1,7 +1,21 @@
 #!/bin/bash
 
-BACKUPUUID="2d2b7382-3d33-4242-8cd6-77e4617c8d52"
+#BACKUPUUID="2d2b7382-3d33-4242-8cd6-77e4617c8d52"
+BACKUPUUID="4609ae3c-82a8-4185-bc95-20479f714187"
+SOURCEDIR=$HOME
+DESTDIR=$USER
 
+while getopts ":n" option; do
+   case $option in
+      n) dryrun="--dry-run"
+         ;;
+   esac
+done
+
+if [ "$EUID" -eq 0 ]
+  then echo "Non usare con sudo!"
+  exit
+fi
 
 devname=$(blkid -U $BACKUPUUID)
 if [[ $devname != "" ]]
@@ -12,15 +26,25 @@ else
   exit
 fi
 
+
+
 if df | grep -q "$devname"
 then
   mountpoint=$(findmnt -no TARGET $devname)
   echo "...montata sulla directory $mountpoint"
   if [ -w $mountpoint ]
   then
-    cd
-    backupdir="$mountpoint/backup_$(date +%Y%m%d-%H%M%S)"
-    rsync -av --delete --backup-dir=$backupdir --no-specials --no-devices . --exclude={backup_*,.cache,noBackup,Dropbox} $mountpoint
+    mkdir -p $mountpoint/$DESTDIR
+    backupdir="$mountpoint/$DESTDIR-$(date +%Y%m%d-%H%M%S)"
+    rsync -av \
+    	  --delete \
+    	  --backup-dir=$backupdir \
+    	  --no-specials \
+    	  --no-devices \
+    	  --exclude={backup_*,noBackup,Dropbox,.dropbox,.docker,.cache} \
+    	  $dryrun \
+    	  $SOURCEDIR/ \
+    	  $mountpoint/$DESTDIR
   else
     echo "Non posso scrivere sulla chiavetta: estraila, reinseriscila e ripeti il comando"
     exit
