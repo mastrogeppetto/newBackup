@@ -1,6 +1,7 @@
 ### Configurazione, installazione e uso
 Un altro script per fare backup incrementale con rsync, adatto sopratutto a dispositivi rimovibili (chiavetta)
-La chiavetta deve essere formattata come ext, provato con ext4, con `gnome-disks`. Copiare il UUID del filesystem da `gnome-disks`.
+La chiavetta deve essere formattata come ext, provato con ext4, con `gnome-disks`.
+Cercare il UUID della chiavetta con il comando `lsblk -e7 -lo NAME,LABEL,UUID,FSAVAIL` cercando la "Label" corrispondente a quella della chiavetta.
 Per configurarle lo script editarlo per sostituire il valore della variabile BACKUPUUID con quella copiata al passo precedente. Ad esempio:
 ```
 BACKUPUUID="2d2b7382-3d33-4242-8cd6-77e4617c8d52"
