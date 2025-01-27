@@ -43,7 +43,7 @@ then
   echo "...montata sulla directory $mountpoint"
   if [ -w $mountpoint ]
   then
-    backupdir="$mountpoint/$(date +%Y%m%d-%H%M%S)"
+    backupdir="$mountpoint/backup_$(date +%Y%m%d-%H%M%S)"
     mkdir -p $mountpoint/$backupdir
     rsync -av \
 		--info=stats2 \
