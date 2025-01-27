@@ -26,8 +26,7 @@ while getopts "nb:" opt; do
 done
 shift $((OPTIND-1))
 
-SOURCEDIR=$HOME/$1
-DESTDIR=backup_$USER/$1
+SOURCEDIR=$HOME/
 
 devname=$(blkid -U $BACKUPUUID)
 if [[ $devname != "" ]]
@@ -44,8 +43,8 @@ then
   echo "...montata sulla directory $mountpoint"
   if [ -w $mountpoint ]
   then
-    mkdir -p $mountpoint/$DESTDIR
-    backupdir="$mountpoint/$DESTDIR/$(date +%Y%m%d-%H%M%S)"
+    backupdir="$mountpoint/$(date +%Y%m%d-%H%M%S)"
+    mkdir -p $mountpoint/$backupdir
     rsync -av \
 		--info=stats2 \
 		--delete \
@@ -55,7 +54,7 @@ then
 		--exclude-from=$EXCLUDE \
 		$dryrun \
 		$SOURCEDIR \
-		$mountpoint/$DESTDIR
+		$mountpoint
   else
     echo "Non posso scrivere sulla chiavetta: estraila, reinseriscila e ripeti il comando"
     exit
